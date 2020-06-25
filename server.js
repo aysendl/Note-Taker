@@ -1,28 +1,26 @@
+const express = require("express");
+const PORT =3001; 
+const app = express();
+const htmlRoutes = require ("./routes/htmlRoutes");
+const apiRoutes = require ("./routes/apiRoutes");
 
 
-// Dependencies
-// =============================================================
-var express = require("express");
-var path = require("path");
-
-// Sets up the Express App
-// =============================================================
-var PORT = process.env.PORT || 3001;
-var app = express();
-
-// Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.json()); 
 
-// Routes
-// =============================================================
-// Basic route that sends the user first to the AJAX Page
-app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "public/index.html"));
+app.use(express.static("public"));
+app.use(apiRoutes);
+app.use(htmlRoutes);
+
+
+ 
+
+app.listen(PORT, function() { 
+  console.log("App listening on PORT " + PORT); 
 });
 
-// Starts the server to begin listening
-// =============================================================
-app.listen(PORT, function() {
-  console.log("App listening on PORT " + PORT);
-});
+
+
+ 
+
+
